@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Google OAuth Example</h1>
+    <p>Click one of the buttons below to authenticate with Google:</p>
+
+    <button id="googleSignIn" onclick="signInWithGoogle()">Sign In with Google</button>
+    <button id="googleSignOut" onclick="signOut()">Sign Out</button>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+        // Client ID obtained from the Google Developer Console.
+        var CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID';
+
+        // Function to initialize the Google Sign-In API.
+        function initGoogleSignIn() {
+            gapi.load('auth2', function () {
+                gapi.auth2.init({
+                    client_id: CLIENT_ID
+                });
+            });
+        }
+
+        // Function to sign in with Google.
+        function signInWithGoogle() {
+            gapi.auth2.getAuthInstance().signIn().then(function (user) {
+                console.log('Signed in as: ' + user.getBasicProfile().getName());
+            });
+        }
+
+        // Function to sign out from Google.
+        function signOut() {
+            gapi.auth2.getAuthInstance().signOut().then(function () {
+                console.log('Signed out');
+            });
+        }
+
+        // Initialize the Google Sign-In API when the page loads.
+        initGoogleSignIn();
+    </script>
+</body>
+</html>
